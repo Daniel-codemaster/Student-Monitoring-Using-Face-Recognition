@@ -1,0 +1,45 @@
+{% extends 'shared/layout_base.html' %}
+{% load static %}
+{% block breadcrumb %} 
+    <a class="breadcrumb-item" href=".">Whatsapp settings</a>  
+{% endblock %}
+
+{% block actionbar %}
+    <a class="btn btn-primary" href="../edit/{{whatsapp.id}}"><i class="fa fa-pencil"></i> Edit</a>
+{% endblock %}
+
+{% block sidebar %}    
+
+{% endblock %}
+
+{% block main %}         
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-4 row">
+                <label class="col-md-4">Phone number</label>
+                <div class="col-md-8">
+                    {{whatsapp.phone}}
+                </div>
+            </div>
+            <div class="mb-4 row">
+                <label class="col-md-4">Token</label>
+                <div class="col-md-8">
+                    {{whatsapp.token}}
+                </div>
+            </div>
+            <div class="mb-4 row">
+                <label class="col-md-4">Template name</label>
+                <div class="col-md-8">
+                    {{whatsapp.template}}
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+    
+{% endblock %}
+
+
+
+

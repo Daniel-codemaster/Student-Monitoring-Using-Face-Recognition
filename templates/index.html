@@ -1,0 +1,61 @@
+{% extends 'shared/layout_base.html' %}
+
+{% block main %} 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">              
+                <div class="m-1 p-4 bg-success boxes box-shadow text-white">
+                    <h3>24</h5>
+                    <h6>Total face scan statistics</h6>
+                </div>
+                
+            </div>
+            <div class="col-md-4">                             
+                <div class="m-1 p-4 bg-primary boxes box-shadow text-white">
+                    <h3>10</h5>
+                    <h6>Students face scan statistics</h6>
+                </div>
+               
+            </div>
+            <div class="col-md-4">              
+                <div class="m-1 p-4 bg-danger boxes box-shadow text-white">
+                    <h3>14</h5>
+                    <h6>Unrecognized face scan statistics</h6>
+                </div>
+            </div>
+        </div>
+        <div id="chartContainer" class="mt-4"></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+     window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title: {
+                    text: "Attendance Graph"
+                },
+                axisY: {
+                    title: "Present %"
+                },
+                axisX: {
+                    title: "Days"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: [
+                        { label: "Monday",  y: {{days.mon}}  },
+                        { label: "Tuesday", y: {{days.tue}}  },
+                        { label: "Wednesday", y: {{days.wed}}  },
+                        { label: "Thursday", y: {{days.thu}}  },
+                        { label: "Friday", y: {{days.fri}}  },
+                    ],
+                }]
+            });
+            chart.render();
+        };    
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'shared/base.html' %} 
+{% load static %}
+
+{% block title %} {{section.title}} - Student Monitoring {% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+        <nav id="sidebar" class="d-print-none active">
+            {% include 'shared/include/side_nav.html' %}
+        </nav>
+        <div id="content">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-dark fixed-top shadow-sm" style="height:68px;">
+                    <div>
+                        <button type="button" id="sidebarCollapse" class="navbar-btn active">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="navbar-brand text-dark text-white-50">
+                            <img src="{% static '/images/logo.png' %}" style="height:64px" /> Student Monitoring System
+                        </div>
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="btn btn-primary"><i class="fa fa-user-circle"></i> {{user.first_name}} {{user.last_name}}</a>
+                            </li>                          
+                            <li class="nav-item">
+                                <a href="/identity/logout" class="nav-link text-danger" >Logout <i class="fa fa-sign-out"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+           
+            {% if section.breadcrumb %}          
+                <div class="navbar navbar-expand-sm p-0" style="background: #ededed ">
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <div class="mr-auto"><div class="breadcrumb py-2 px-3 m-0 small" style="background: none !important">{% block breadcrumb %}{% endblock %}</div></div>                       
+                    </div>
+                </div>          
+            {% endif %}
+            <div class="mx-3">
+                {% if section.sidebar %}
+                    <main role="main">
+                        <div class="row d-print-none">
+                            <div class="col pb-3 py-2">
+                                <div class="navbar navbar-expand-lg px-0 mb-3">
+                                    {% if section.page_title %}
+                                        <h4>{{ section.page_title }}</h4>
+                                    {% endif %}
+                                    {% if section.actionbar %}
+                                        <div class="ms-auto" style="">{% block actionbar_s %}{% endblock %}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="d-print-block">{% block main_s %}{% endblock %}</div>
+                            </div>
+                            <div class="col-3 collapse d-md-flex border-left border-light px-0 bg-light" style="min-height: 100vh">{% block sidebar %}{% endblock %}</div>
+                        </div>
+                    </main>
+                {% else %}
+                    <main role="main" class="pb-3 py-2">
+                        <div class="title-bar d-flex mb-3">
+                            {% if section.page_title %}                            
+                                <h4>{{ section.page_title }}</h4>
+                            
+                            {% elif section.actionbar %}
+                                <div class="ms-auto">{% block actionbar %}{% endblock %}</div>
+                            {% endif %}
+                        </div>
+                        <div class="d-print-block">{% block main %}{% endblock %}</div>
+                    </main>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+            
+            $('#sidebarCollapse').on('click', function () {
+                
+                if (!$('#sidebar').hasClass('sidebar-transition')) $('#sidebar').addClass('sidebar-transition');
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+
+                sessionStorage.setItem("sidebarCollapse", $('#sidebar').hasClass('active') ? 1 : 0);
+                
+            });
+
+            if (sessionStorage.getItem('sidebarCollapse') == 0) {
+                $('#sidebarCollapse').toggleClass('active');
+                $('#sidebar').toggleClass('active');
+            }
+
+            $("#configSubmenu").click(function(){
+               
+                $("#configSubmenu").addClass('show');
+            });
+           
+            $(".datepicker").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "yy-mm-dd",
+                yearRange: "c-100:c+100",
+                showButtonPanel: true,
+            });
+        });
+    </script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+    </script>
+{% endblock %}

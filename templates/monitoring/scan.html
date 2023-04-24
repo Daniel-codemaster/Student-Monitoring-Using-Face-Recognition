@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+{% load static %} 
+
+{% block content %} 
+<div class="container">
+    <div class="card">
+
+    </div>
+</div>
+{% endblock %} 
+
+{% block scripts %} 
+<script>
+    $(document).ready(function(){
+        var url = 'http://127.0.0.1:8000/monitoring/ajax';
+        //var last_face = document.getElementById('last_face').innerHTML;
+        $.ajax({
+            url: url,
+            success: function(data){              
+                window.location.replace("http://127.0.0.1:8000/monitoring/details");            
+            }
+        })
+    });
+</script>
+{% endblock %}

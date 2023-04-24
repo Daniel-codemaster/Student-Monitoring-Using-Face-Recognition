@@ -1,0 +1,44 @@
+{% extends 'shared/layout_base.html' %}
+{% load tz %}
+
+{% block breadcrumb %} 
+    <a class="breadcrumb-item" href="">Users</a>
+{% endblock %}
+
+{% block actionbar %} 
+    <a class="btn btn-primary" href="add"><i class="fa fa-plus"></i> Add new..</a>
+{% endblock %}
+
+{% block main %} 
+        
+    {% if query_string %}
+    <div class="row">
+        <p><i class="fa fa-search"></i> You searched for "<b>{{ query_string }}</b>" <a asp-page="index" class="btn btn-outline-secondary btn-sm">Clear search</a></p>
+    </div>
+    {% endif %}
+
+    <h4 class="font-weight-light"><strong>{{mylist.count}}</strong> User{% if mylist.count != 1 %}s{% endif %}</h4>
+    <table class="table table-striped table-hover table-sm border-bottom border-top">
+        
+        <tbody>
+            <tr>
+                <th>Username</th>
+                <th>Last login</th>
+            </tr>
+            {% for item in mylist %}
+                <tr>
+                    <td><a href="details/{{item.id}}">{{item.username}}</a></td>
+                    <td>
+                        {{item.last_login}}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+

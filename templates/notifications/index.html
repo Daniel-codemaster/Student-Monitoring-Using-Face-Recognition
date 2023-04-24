@@ -1,0 +1,25 @@
+{% extends 'shared/layout_base.html' %}
+
+{% block breadcrumb %} 
+    <a class="breadcrumb-item" href="">Notifications</a>
+{% endblock %}
+
+{% block actionbar %} 
+    <a class="btn btn-primary" href="add"><i class="fa fa-plus"></i> Add new..</a>
+{% endblock %}
+
+{% block main %} 
+        
+    {% if query_string %}
+    <div class="row">
+        <p><i class="fa fa-search"></i> You searched for "<b>{{ query_string }}</b>" <a asp-page="index" class="btn btn-outline-secondary btn-sm">Clear search</a></p>
+    </div>
+    {% endif %}
+
+    <h4 class="font-weight-light"><strong>{{mylist.count}}</strong> Notification{% if mylist.count != 1 %}s{% endif %}</h4>
+    
+{% endblock %}
+
+
+
+
